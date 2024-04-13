@@ -14,12 +14,10 @@ class LinkForm(forms.ModelForm):
         fields = ['node1', 'node2', 'length', 'flow_rate', 'speed']
 
     def __init__(self, link=None, **kwargs):
-        print(kwargs)
-        print(link)
         project = kwargs.pop("project")
-        super().__init__(**kwargs)
+        super().__init__(link, **kwargs)
 
         if project is not None:
             node_qs = Node.objects.filter(project=project)
-            self.fields["node1"].queryset = node_qs
-            self.fields["node2"].queryset = node_qs
+            self.fields["node1"].queryset = node_qs.all()
+            self.fields["node2"].queryset = node_qs.all()
