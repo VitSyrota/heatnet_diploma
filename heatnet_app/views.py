@@ -1,6 +1,7 @@
 import json
 
 from django.db.models import Q
+from django.http import HttpResponse
 from django.shortcuts import render, redirect
 from heatnet_app.models import Project, Node, Link
 from heatnet_app.forms import NodeForm, LinkForm
@@ -51,16 +52,21 @@ def project_detail(request, project_id):
     link_form = LinkForm(request.POST or None, project=project)
 
     if request.method == 'POST':
-        if node_form.is_valid():
+        form_name = request.GET.get('form')
+        if form_name not in ('node', 'link'):
+            return HttpResponse(status=406)
+
+        if form_name == 'node' and node_form.is_valid():
             node = node_form.save(commit=False)
             node.project = project
             node.save()
             return redirect('project_detail', project_id=project_id)
 
-        elif link_form.is_valid():
+        if form_name == 'link' and link_form.is_valid():
             link = link_form.save(commit=False)
             link.save()
             return redirect('project_detail', project_id=project_id)
+
     nodes = project.nodes
     links = Link.objects.filter(Q(node1__project=project) | Q(node2__project=project))
     graph_nodes = [{"id": node.id} for node in nodes.all()]

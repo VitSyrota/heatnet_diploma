@@ -9,38 +9,41 @@
 <body>
     <h1>{{ project.name }}</h1>
 
-    <h2>Вузли</h2>
-    <ul>
-        {% for node in nodes %}
+    <div style="display: flex;">
+      <div>
+        <h2>Вузли</h2>
+        <ul>
+          {% for node in nodes %}
             <li>{{ node }}</li>
-        {% endfor %}
-    </ul>
+          {% endfor %}
+        </ul>
 
-    <h2>Додати вузол</h2>
-    <form method="post">
-        {% csrf_token %}
-        {{ node_form.as_p }}
-        <button type="submit">Add Node</button>
-    </form>
+        <h2>Додати вузол</h2>
+        <form method="post" action="?form=node">
+          {% csrf_token %}
+          {{ node_form.as_p }}
+          <button type="submit">Add Node</button>
+        </form>
 
-    <h2>Ділянки</h2>
-    <ul>
-        {% for link in links %}
+        <h2>Ділянки</h2>
+        <ul>
+          {% for link in links %}
             <li>{{ link }}</li>
-        {% endfor %}
-    </ul>
+          {% endfor %}
+        </ul>
 
-    <h2>Додати ділянку</h2>
-    <form method="post">
-        {% csrf_token %}
-        {{ link_form.as_p }}
-        <button type="submit">Add Link</button>
-    </form>
+        <h2>Додати ділянку</h2>
+        <form method="post" action="?form=link">
+          {% csrf_token %}
+          {{ link_form.as_p }}
+          <button type="submit">Add Link</button>
+        </form>
+      </div>
 
-    <div id="graph"></div>
+      <div id="graph"></div>
+    </div>
      <script>
     // Random tree
-    const N = 300;
     const gData = {{ graph_data|safe }};
     const Graph = ForceGraph()
       (document.getElementById('graph'))
