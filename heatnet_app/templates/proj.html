@@ -1,0 +1,18 @@
+<!-- templates/project_list.html -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Список проектів</title>
+</head>
+<body>
+    <h1>Список проектів</h1>
+    <ul>
+    {% for project in projects %}
+        <li><a href="{% url 'project_detail' project.id %}">{{ project.name }}</a></li>
+    {% empty %}
+        <li>Немає проектів</li>
+    {% endfor %}
+    </ul>
+</body>
+</html>

@@ -1,0 +1,24 @@
+<!-- templates/link_list.html -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Список лінків</title>
+</head>
+<body>
+    <h1>Список лінків</h1>
+    <ul>
+    {% for link in links %}
+        <li>{{ link }}</li>
+        <ul>
+            <li>Довжина: {{ link.length }} м</li>
+            <li>Витрата: {{ link.flow_rate }} т/год</li>
+            <li>Швидкість: {{ link.speed }} м/с</li>
+            <li>Діаметр: {{ link.diameter }} м</li>
+        </ul>
+    {% empty %}
+        <li>Немає лінків</li>
+    {% endfor %}
+    </ul>
+</body>
+</html>

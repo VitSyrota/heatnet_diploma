@@ -1,0 +1,19 @@
+<!-- templates/project_detail.html -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Деталі проекту</title>
+</head>
+<body>
+    <h1>{{ project.name }}</h1>
+    <h2>Вузли проекту:</h2>
+    <ul>
+    {% for node in project.nodes.all %}
+        <li>{{ node }}</li>
+    {% empty %}
+        <li>В цьому проекті немає вузлів</li>
+    {% endfor %}
+    </ul>
+</body>
+</html>

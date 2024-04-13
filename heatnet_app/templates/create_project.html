@@ -1,0 +1,17 @@
+<!-- create_project.html -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Створення нового проекту</title>
+</head>
+<body>
+    <h2>Створення нового проекту</h2>
+    <form method="post">
+        {% csrf_token %}
+        <label for="project_name">Назва проекту:</label><br>
+        <input type="text" id="project_name" name="project_name"><br><br>
+        <input type="submit" value="Створити проект">
+    </form>
+</body>
+</html>
